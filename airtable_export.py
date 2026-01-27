@@ -30,8 +30,6 @@ COLUMNS_TO_EXPORT = [
     'Loan Size',
     'Primary LO',
     'Lender / Investor',
-    'Comp Type',
-    'Channel'
 ]
 
 # Email configuration
