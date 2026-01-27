@@ -1,0 +1,46 @@
+name: Daily Airtable Export
+
+on:
+  schedule:
+    # Runs every day at 9 AM UTC (adjust as needed)
+    - cron: '0 9 * * *'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install requests pandas openpyxl
+    
+    - name: Run export script
+      env:
+        AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+      run: |
+        python airtable_export.py
+    
+    - name: Upload Excel file as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: airtable-export-${{ github.run_number }}
+        path: '*.xlsx'
+        retention-days: 30
+    
+    # Optional: Commit the file back to the repo
+    # - name: Commit and push export
+    #   run: |
+    #     git config --local user.email "github-actions[bot]@users.noreply.github.com"
+    #     git config --local user.name "github-actions[bot]"
+    #     git add *.xlsx
+    #     git commit -m "Daily export $(date +'%Y-%m-%d')" || echo "No changes to commit"
+    #     git push
