@@ -14,11 +14,11 @@ from openpyxl.styles import Font, PatternFill, Alignment
 # Configuration
 AIRTABLE_TOKEN = os.environ.get('AIRTABLE_TOKEN')
 BASE_ID = 'appgBl5EHB3qFtOPl'
-TABLE_NAME = 'Indecomm Funded File'  # Update if needed
-VIEW_ID = 'shrVeOZxHGaniFO4N'
+TABLE_NAME = 'Data Input'
+VIEW_NAME = 'Indecomm Funded File'
 
 def get_airtable_records():
-    """Fetch all records from the Airtable view"""
+    """Gather all records from the Airtable view"""
     url = f'https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}'
     headers = {
         'Authorization': f'Bearer {AIRTABLE_TOKEN}',
@@ -26,7 +26,7 @@ def get_airtable_records():
     }
     
     params = {
-        'view': VIEW_ID
+        'view': VIEW_NAME
     }
     
     all_records = []
