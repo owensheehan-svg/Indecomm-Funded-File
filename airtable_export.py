@@ -26,6 +26,7 @@ VIEW_NAME = 'Indecomm Funded File'
 COLUMNS_TO_EXPORT = [
     'Borrower Name',
     'Loan Number',
+    'Mortgage Type',
     'Funded Date',
     'Loan Size',
     'Primary LO',
